@@ -87,10 +87,13 @@ namespace TMDBSample
       // 
       // textBoxMovieInfo
       // 
+      this.textBoxMovieInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.textBoxMovieInfo.Location = new System.Drawing.Point(426, 142);
       this.textBoxMovieInfo.Multiline = true;
       this.textBoxMovieInfo.Name = "textBoxMovieInfo";
-      this.textBoxMovieInfo.Size = new System.Drawing.Size(345, 281);
+      this.textBoxMovieInfo.Size = new System.Drawing.Size(946, 436);
       this.textBoxMovieInfo.TabIndex = 2;
       // 
       // menuStrip1
@@ -102,7 +105,7 @@ namespace TMDBSample
             this.helpToolStripMenuItem});
       this.menuStrip1.Location = new System.Drawing.Point(0, 0);
       this.menuStrip1.Name = "menuStrip1";
-      this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+      this.menuStrip1.Size = new System.Drawing.Size(1397, 24);
       this.menuStrip1.TabIndex = 3;
       this.menuStrip1.Text = "menuStrip1";
       // 
@@ -333,7 +336,7 @@ namespace TMDBSample
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(800, 450);
+      this.ClientSize = new System.Drawing.Size(1397, 590);
       this.Controls.Add(this.textBoxMovieInfo);
       this.Controls.Add(this.pictureBoxMoviePoster);
       this.Controls.Add(this.buttonGetMovie);

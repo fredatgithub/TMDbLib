@@ -46,7 +46,7 @@ namespace TMDBSample
 
     private async Task FetchConfig(TMDbClient client)
     {
-      FileInfo configJson = new FileInfo("config.json");
+      FileInfo configJson = new("config.json");
 
       textBoxMovieInfo.Text += "Config file: " + configJson.FullName + ", Exists: " + configJson.Exists;
 
@@ -108,10 +108,10 @@ namespace TMDBSample
       // Displays basic information about each image, as well as all the possible adresses for it.
       // All images should be available in all the sizes provided by the configuration.
 
-      List<ImageData> imagesLst = images.ToList();
-      List<string> sizesLst = sizes.ToList();
+      List<ImageData> imagesList = images.ToList();
+      List<string> sizeList = sizes.ToList();
       StringBuilder infoMovie = new();
-      foreach (ImageData imageData in imagesLst)
+      foreach (ImageData imageData in imagesList)
       {
         infoMovie.Append(imageData.FilePath);
         infoMovie.Append("\t " + imageData.Width + "x" + imageData.Height);
@@ -120,7 +120,7 @@ namespace TMDBSample
         // There are multiple resizing available for each image, directly from TMDb.
         // There's always the "original" size if you're in doubt which to choose.
         StringBuilder movieResult = new();
-        foreach (string size in sizesLst)
+        foreach (string size in sizeList)
         {
           Uri imageUri = client.GetImageUrl(size, imageData.FilePath);
           movieResult.Append("\t -> " + imageUri);
@@ -134,36 +134,36 @@ namespace TMDBSample
       // Download an image for testing, uses the internal HttpClient in the API.
       textBoxMovieInfo.Text += "Downloading image for the first url, as a test";
 
-      Uri testUrl = client.GetImageUrl(sizesLst.First(), imagesLst.First().FilePath);
-      byte[] bts = await client.GetImageBytesAsync(sizesLst.First(), imagesLst.First().FilePath);
+      Uri testUrl = client.GetImageUrl(sizeList.First(), imagesList.First().FilePath);
+      byte[] bts = await client.GetImageBytesAsync(sizeList.First(), imagesList.First().FilePath);
 
       textBoxMovieInfo.Text += $"Downloaded {testUrl}: {bts.Length} bytes";
     }
 
     private async Task FetchMovieExample(TMDbClient client)
     {
-      string query = "Thor";
+      string query = "Predator";
 
       // This example shows the fetching of a movie.
-      // Say the user searches for "Thor" in order to find "Thor: The Dark World" or "Thor"
+      // Say the user searches for "Predator" in order to find "Predator II" or "Predator"
       SearchContainer<SearchMovie> results = await client.SearchMovieAsync(query);
 
       // The results is a list, currently on page 1 because we didn't specify any page.
-      textBoxMovieInfo.Text += "Searched for movies: '" + query + "', found " + results.TotalResults + " results in " + results.TotalPages + " pages";
+      textBoxMovieInfo.Text += "Searched for movies: '" + query + "', found " + results.TotalResults + " results in " + results.TotalPages + " pages" + Environment.NewLine;
 
       // Let's iterate the first few hits
       StringBuilder movieResult = new();
-      foreach (SearchMovie result in results.Results.Take(3))
+      foreach (SearchMovie result in results.Results.Take(1))
       {
         // Print out each hit
-        movieResult.Append(result.Id + ": " + result.Title);
-        movieResult.Append("\t Original Title: " + result.OriginalTitle);
-        movieResult.Append("\t Release date  : " + result.ReleaseDate);
-        movieResult.Append("\t Popularity    : " + result.Popularity);
-        movieResult.Append("\t Vote Average  : " + result.VoteAverage);
-        movieResult.Append("\t Vote Count    : " + result.VoteCount);
-        movieResult.Append("\t Backdrop Path : " + result.BackdropPath);
-        movieResult.Append("\t Poster Path   : " + result.PosterPath);
+        movieResult.Append(result.Id + ": " + result.Title + Environment.NewLine);
+        movieResult.Append("\t Original Title: " + result.OriginalTitle + Environment.NewLine);
+        movieResult.Append("\t Release date  : " + result.ReleaseDate + Environment.NewLine);
+        movieResult.Append("\t Popularity    : " + result.Popularity + Environment.NewLine);
+        movieResult.Append("\t Vote Average  : " + result.VoteAverage + Environment.NewLine);
+        movieResult.Append("\t Vote Count    : " + result.VoteCount + Environment.NewLine);
+        movieResult.Append("\t Backdrop Path : " + result.BackdropPath + Environment.NewLine);
+        movieResult.Append("\t Poster Path   : " + result.PosterPath + Environment.NewLine);
       }
 
       textBoxMovieInfo.Text += movieResult.ToString();
@@ -173,7 +173,7 @@ namespace TMDBSample
     private void Spacer()
     {
       textBoxMovieInfo.Text += Environment.NewLine;
-      textBoxMovieInfo.Text += " ----- ";
+      textBoxMovieInfo.Text += " ----- " + Environment.NewLine;
       textBoxMovieInfo.Text += Environment.NewLine;
     }
   }
