@@ -83,5 +83,5 @@ Tips
 
 Here is an example:
 
-![family.jpg example](
-https://github.com/fredatgithub/TMDbLib/blob/master/example.JPG)
+![example2.JPG example](
+https://github.com/fredatgithub/TMDbLib/blob/master/example2.JPG)
