@@ -11,19 +11,19 @@
   <!-- Analyzers -->
   <ItemGroup>
     <PackageReference Include="ConfigureAwaitChecker.Analyzer" Version="5.0.0" PrivateAssets="All" />
-    <PackageReference Include="IDisposableAnalyzers" Version="3.4.13">
+    <PackageReference Include="IDisposableAnalyzers" Version="3.4.15">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" PrivateAssets="compile" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" PrivateAssets="compile" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="Microsoft.CSharp" />
-    <PackageReference Include="System.Net.Http" Version="4.3.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.2' ">
