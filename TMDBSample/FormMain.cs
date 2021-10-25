@@ -25,6 +25,7 @@ namespace TMDBSample
 
     private async void ButtonGetMovie_Click(object sender, EventArgs e)
     {
+      textBoxMovieInfo.Text = string.Empty;
       // Instantiate a new client, all that's needed is an API key, but it's possible to 
       // also specify if SSL should be used, and if another server address should be used.
       using TMDbClient client = new TMDbClient("c6b31d1cdad6a56a23f0c913e2482a31");
@@ -167,7 +168,16 @@ namespace TMDBSample
 
     private async Task FetchMovieExample(TMDbClient client)
     {
-      string query = "Predator";
+      string query = string.Empty;
+      if (string.IsNullOrEmpty(textBoxSearchMovie.Text))
+      {
+        query = "Predator";
+      }
+      else
+      {
+        query = textBoxSearchMovie.Text;
+      }
+
 
       // This example shows the fetching of a movie.
       // Say the user searches for "Predator" in order to find "Predator II" or "Predator"
