@@ -63,13 +63,17 @@ namespace TMDBSample
       this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.buttonPreviousPicture = new System.Windows.Forms.Button();
+      this.buttonNextPicture = new System.Windows.Forms.Button();
+      this.labelSearchMovie = new System.Windows.Forms.Label();
+      this.textBoxSearchMovie = new System.Windows.Forms.TextBox();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMoviePoster)).BeginInit();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // buttonGetMovie
       // 
-      this.buttonGetMovie.Location = new System.Drawing.Point(43, 72);
+      this.buttonGetMovie.Location = new System.Drawing.Point(43, 102);
       this.buttonGetMovie.Name = "buttonGetMovie";
       this.buttonGetMovie.Size = new System.Drawing.Size(75, 23);
       this.buttonGetMovie.TabIndex = 0;
@@ -79,9 +83,9 @@ namespace TMDBSample
       // 
       // pictureBoxMoviePoster
       // 
-      this.pictureBoxMoviePoster.Location = new System.Drawing.Point(43, 142);
+      this.pictureBoxMoviePoster.Location = new System.Drawing.Point(43, 182);
       this.pictureBoxMoviePoster.Name = "pictureBoxMoviePoster";
-      this.pictureBoxMoviePoster.Size = new System.Drawing.Size(337, 281);
+      this.pictureBoxMoviePoster.Size = new System.Drawing.Size(337, 241);
       this.pictureBoxMoviePoster.TabIndex = 1;
       this.pictureBoxMoviePoster.TabStop = false;
       // 
@@ -93,6 +97,7 @@ namespace TMDBSample
       this.textBoxMovieInfo.Location = new System.Drawing.Point(426, 142);
       this.textBoxMovieInfo.Multiline = true;
       this.textBoxMovieInfo.Name = "textBoxMovieInfo";
+      this.textBoxMovieInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
       this.textBoxMovieInfo.Size = new System.Drawing.Size(946, 436);
       this.textBoxMovieInfo.TabIndex = 2;
       // 
@@ -332,11 +337,54 @@ namespace TMDBSample
       this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
       // 
+      // buttonPreviousPicture
+      // 
+      this.buttonPreviousPicture.Enabled = false;
+      this.buttonPreviousPicture.Location = new System.Drawing.Point(43, 142);
+      this.buttonPreviousPicture.Name = "buttonPreviousPicture";
+      this.buttonPreviousPicture.Size = new System.Drawing.Size(105, 23);
+      this.buttonPreviousPicture.TabIndex = 4;
+      this.buttonPreviousPicture.Text = "Previous picture";
+      this.buttonPreviousPicture.UseVisualStyleBackColor = true;
+      this.buttonPreviousPicture.Click += new System.EventHandler(this.ButtonPreviousPicture_Click);
+      // 
+      // buttonNextPicture
+      // 
+      this.buttonNextPicture.Enabled = false;
+      this.buttonNextPicture.Location = new System.Drawing.Point(154, 141);
+      this.buttonNextPicture.Name = "buttonNextPicture";
+      this.buttonNextPicture.Size = new System.Drawing.Size(105, 23);
+      this.buttonNextPicture.TabIndex = 5;
+      this.buttonNextPicture.Text = "Next picture";
+      this.buttonNextPicture.UseVisualStyleBackColor = true;
+      this.buttonNextPicture.Click += new System.EventHandler(this.ButtonNextPicture_Click);
+      // 
+      // labelSearchMovie
+      // 
+      this.labelSearchMovie.AutoSize = true;
+      this.labelSearchMovie.Location = new System.Drawing.Point(43, 68);
+      this.labelSearchMovie.Name = "labelSearchMovie";
+      this.labelSearchMovie.Size = new System.Drawing.Size(93, 15);
+      this.labelSearchMovie.TabIndex = 6;
+      this.labelSearchMovie.Text = "Search a movie: ";
+      // 
+      // textBoxSearchMovie
+      // 
+      this.textBoxSearchMovie.Location = new System.Drawing.Point(154, 68);
+      this.textBoxSearchMovie.Name = "textBoxSearchMovie";
+      this.textBoxSearchMovie.Size = new System.Drawing.Size(226, 23);
+      this.textBoxSearchMovie.TabIndex = 7;
+      this.textBoxSearchMovie.Text = "Thor";
+      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(1397, 590);
+      this.Controls.Add(this.textBoxSearchMovie);
+      this.Controls.Add(this.labelSearchMovie);
+      this.Controls.Add(this.buttonNextPicture);
+      this.Controls.Add(this.buttonPreviousPicture);
       this.Controls.Add(this.textBoxMovieInfo);
       this.Controls.Add(this.pictureBoxMoviePoster);
       this.Controls.Add(this.buttonGetMovie);
@@ -387,6 +435,10 @@ namespace TMDBSample
     private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+    private System.Windows.Forms.Button buttonPreviousPicture;
+    private System.Windows.Forms.Button buttonNextPicture;
+    private System.Windows.Forms.Label labelSearchMovie;
+    private System.Windows.Forms.TextBox textBoxSearchMovie;
   }
 }
 

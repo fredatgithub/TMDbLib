@@ -20,6 +20,9 @@ namespace TMDBSample
       InitializeComponent();
     }
 
+    List<string> listOfPictures = new();
+    int cursor = 0;
+
     private async void ButtonGetMovie_Click(object sender, EventArgs e)
     {
       // Instantiate a new client, all that's needed is an API key, but it's possible to 
@@ -135,9 +138,31 @@ namespace TMDBSample
       textBoxMovieInfo.Text += "Downloading image for the first url, as a test";
 
       Uri testUrl = client.GetImageUrl(sizeList.First(), imagesList.First().FilePath);
+
+      listOfPictures.Add(imagesList.First().FilePath.TrimStart('/'));
       byte[] bts = await client.GetImageBytesAsync(sizeList.First(), imagesList.First().FilePath);
+      try
+      {
+        File.WriteAllBytes(imagesList.First().FilePath.TrimStart('/'), bts);
+      }
+      catch (Exception exception)
+      {
+        throw new Exception("exception while trying to write the picture to local disk: " + exception.Message);
+      }
 
       textBoxMovieInfo.Text += $"Downloaded {testUrl}: {bts.Length} bytes";
+      cursor = listOfPictures.Count;
+      if (listOfPictures.Count == 0)
+      {
+        buttonNextPicture.Enabled = false;
+        buttonPreviousPicture.Enabled = false;
+      }
+      else
+      {
+        buttonNextPicture.Enabled = true;
+        buttonPreviousPicture.Enabled = true;
+        pictureBoxMoviePoster.ImageLocation = listOfPictures[0];
+      }
     }
 
     private async Task FetchMovieExample(TMDbClient client)
@@ -175,6 +200,54 @@ namespace TMDBSample
       textBoxMovieInfo.Text += Environment.NewLine;
       textBoxMovieInfo.Text += " ----- " + Environment.NewLine;
       textBoxMovieInfo.Text += Environment.NewLine;
+    }
+
+    private void ButtonPreviousPicture_Click(object sender, EventArgs e)
+    {
+      if (cursor > 0 && listOfPictures.Count > 0)
+      {
+        cursor--;
+        pictureBoxMoviePoster.ImageLocation = listOfPictures[cursor];
+      }
+
+      if (listOfPictures.Count == 0)
+      {
+        buttonNextPicture.Enabled = false;
+        buttonPreviousPicture.Enabled = false;
+      }
+
+      if (cursor >= 0 && cursor <= listOfPictures.Count)
+      {
+        buttonPreviousPicture.Enabled = true;
+      }
+      else
+      {
+        buttonPreviousPicture.Enabled = false;
+      }
+    }
+
+    private void ButtonNextPicture_Click(object sender, EventArgs e)
+    {
+      if (cursor < listOfPictures.Count - 1)
+      {
+        cursor++;
+        pictureBoxMoviePoster.ImageLocation = listOfPictures[cursor];
+      }
+
+      if (listOfPictures.Count == 0)
+      {
+        buttonNextPicture.Enabled = false;
+        buttonPreviousPicture.Enabled = false;
+      }
+
+      if (cursor <= listOfPictures.Count)
+      {
+        buttonNextPicture.Enabled = true;
+      }
+      else
+      {
+        buttonNextPicture.Enabled = false;
+      }
     }
   }
 }
