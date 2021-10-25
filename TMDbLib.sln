@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Imports", "_Imports", "{EA
 		_Imports\Test.targets = _Imports\Test.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheMovieDatabaseSample", "TheMovieDatabaseSample\TheMovieDatabaseSample.csproj", "{09EA8573-61BC-4328-87D7-F94ED1CB3865}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMDBSample", "TMDBSample\TMDBSample.csproj", "{6A8193D6-CD92-4B28-AABC-8580E12583A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{228615EB-BFA3-44A7-8648-A7EA48470777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{228615EB-BFA3-44A7-8648-A7EA48470777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{228615EB-BFA3-44A7-8648-A7EA48470777}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09EA8573-61BC-4328-87D7-F94ED1CB3865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09EA8573-61BC-4328-87D7-F94ED1CB3865}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09EA8573-61BC-4328-87D7-F94ED1CB3865}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09EA8573-61BC-4328-87D7-F94ED1CB3865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8193D6-CD92-4B28-AABC-8580E12583A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8193D6-CD92-4B28-AABC-8580E12583A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8193D6-CD92-4B28-AABC-8580E12583A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8193D6-CD92-4B28-AABC-8580E12583A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

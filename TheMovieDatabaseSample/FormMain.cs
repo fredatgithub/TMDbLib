@@ -804,21 +804,26 @@ namespace TheMovieDatabaseSample
 
       List<ImageData> imagesLst = images.ToList();
       List<string> sizesLst = sizes.ToList();
-
+      StringBuilder infoMovie = new();
       foreach (ImageData imageData in imagesLst)
       {
-        textBoxMovieInfo.Text += imageData.FilePath;
-        textBoxMovieInfo.Text += "\t " + imageData.Width + "x" + imageData.Height;
+        infoMovie.Append(imageData.FilePath);
+        infoMovie.Append("\t " + imageData.Width + "x" + imageData.Height);
 
         // Calculate the images path
         // There are multiple resizing available for each image, directly from TMDb.
         // There's always the "original" size if you're in doubt which to choose.
+        StringBuilder movieResult = new();
         foreach (string size in sizesLst)
         {
           Uri imageUri = client.GetImageUrl(size, imageData.FilePath);
-          textBoxMovieInfo.Text += "\t -> " + imageUri;
+          movieResult.Append("\t -> " + imageUri);
         }
+
+        textBoxMovieInfo.Text += movieResult.ToString();
       }
+
+      textBoxMovieInfo.Text += infoMovie.ToString();
 
       // Download an image for testing, uses the internal HttpClient in the API.
       textBoxMovieInfo.Text += "Downloading image for the first url, as a test";
