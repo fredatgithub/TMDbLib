@@ -14,7 +14,7 @@ namespace TestApplication
 {
   public class Program
   {
-    private static async Task Main(string[] args)
+    private static async Task Main()
     {
       // Instantiate a new client, all that's needed is an API key, but it's possible to 
       // also specify if SSL should be used, and if another server address should be used.
@@ -32,8 +32,10 @@ namespace TestApplication
       // This example also shows an important feature of most of the Get-methods.
       await FetchImagesExample(client);
 
+
       Console.WriteLine("Done.");
-      Console.ReadLine();
+      Console.WriteLine("Press any key to exit:");
+      Console.ReadKey();
     }
 
     private static async Task FetchConfig(TMDbClient client)
