@@ -52,7 +52,7 @@ namespace TMDBSample
     {
       FileInfo configJson = new("config.json");
 
-      //textBoxMovieInfo.Text += "Config file: " + configJson.FullName + ", Exists: " + configJson.Exists;
+      textBoxMovieInfo.Text += "Config file: " + configJson.FullName + ", Exists: " + configJson.Exists;
 
       if (configJson.Exists && configJson.LastWriteTimeUtc >= DateTime.UtcNow.AddHours(-1))
       {
