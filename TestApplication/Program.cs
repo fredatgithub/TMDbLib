@@ -12,7 +12,7 @@ using TMDbLib.Utilities.Serializer;
 
 namespace TestApplication
 {
-  public class Program
+  public static class Program
   {
     private static async Task Main()
     {
@@ -31,7 +31,6 @@ namespace TestApplication
       // TMDb follow the pattern shown in the following example
       // This example also shows an important feature of most of the Get-methods.
       await FetchImagesExample(client);
-
 
       Console.WriteLine("Done.");
       Console.WriteLine("Press any key to exit:");
@@ -143,8 +142,7 @@ namespace TestApplication
       SearchContainer<SearchMovie> results = await client.SearchMovieAsync(query);
 
       // The results is a list, currently on page 1 because we didn't specify any page.
-      Console.WriteLine("Searched for movies: '" + query + "', found " + results.TotalResults + " results in " +
-                        results.TotalPages + " pages");
+      Console.WriteLine("Searched for movies: '" + query + "', found " + results.TotalResults + " results in " + results.TotalPages + " pages");
 
       // Let's iterate the first few hits
       foreach (SearchMovie result in results.Results.Take(3))
