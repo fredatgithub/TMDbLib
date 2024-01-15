@@ -98,6 +98,20 @@ namespace TMDbLib.Client
     /// </summary>
     /// <remarks>Use 'SetSessionInformation' to assign this value</remarks>
     public string SessionId { get; private set; }
+        /// <summary>
+        /// Gets or sets timeout when requests to TMDb API.
+        /// </summary>
+        public TimeSpan Timeout
+        {
+            get => _client.Timeout;
+            set => _client.Timeout = value;
+        }
+
+        /// <summary>
+        /// The session id that will be used when TMDb requires authentication
+        /// </summary>
+        /// <remarks>Use 'SetSessionInformation' to assign this value</remarks>
+        public string SessionId { get; private set; }
 
     /// <summary>
     /// The type of the session id, this will determine the level of access that is granted on the API
@@ -185,10 +199,11 @@ namespace TMDbLib.Client
       return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
     }
 
-    private void Initialize(string baseUrl, bool useSsl, string apiKey)
-    {
-      if (string.IsNullOrWhiteSpace(baseUrl))
-        throw new ArgumentException("baseUrl");
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP003:Dispose previous before re-assigning.", Justification = "Only called from ctor")]
+        private void Initialize(string baseUrl, bool useSsl, string apiKey)
+        {
+            if (string.IsNullOrWhiteSpace(baseUrl))
+                throw new ArgumentException("baseUrl");
 
       if (string.IsNullOrWhiteSpace(apiKey))
         throw new ArgumentException("apiKey");
@@ -201,10 +216,11 @@ namespace TMDbLib.Client
       else if (baseUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
         baseUrl = baseUrl.Substring("https://".Length);
 
-      string httpScheme = useSsl ? "https" : "http";
-      _client = new RestClient(new Uri(string.Format("{0}://{1}/{2}/", httpScheme, baseUrl, ApiVersion)), _serializer, WebProxy);
-      _client.AddDefaultQueryString("api_key", apiKey);
-    }
+            string httpScheme = useSsl ? "https" : "http";
+
+            _client = new RestClient(new Uri(string.Format("{0}://{1}/{2}/", httpScheme, baseUrl, ApiVersion)), _serializer, WebProxy);
+            _client.AddDefaultQueryString("api_key", apiKey);
+        }
 
     /// <summary>
     /// Used internally to determine if the current client has the required session set, if not an appropriate exception will be thrown
@@ -272,9 +288,9 @@ namespace TMDbLib.Client
       }
     }
 
-    public void Dispose()
-    {
-      _client?.Dispose();
+        public virtual void Dispose()
+        {
+            _client?.Dispose();
+        }
     }
-  }
 }

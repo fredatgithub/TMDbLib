@@ -4,9 +4,10 @@ using System.Linq;
 using TMDbLib.Objects.Companies;
 using TMDbLib.Objects.General;
 using TMDbLib.Client;
+using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
-using TMDbLib.Objects.TvShows;
 using TMDbLib.Utilities;
+using Cast = TMDbLib.Objects.TvShows.Cast;
 
 namespace TMDbLib.Objects.Discover
 {
@@ -374,6 +375,24 @@ namespace TMDbLib.Objects.Discover
         }
 
         /// <summary>
+        /// Only include movies that are equal to, or have a runtime higher than this value. Expected value is an integer (minutes).
+        /// </summary>
+        public DiscoverMovie WhereRuntimeIsAtLeast(int minutes)
+        {
+            Parameters["with_runtime.gte"] = minutes.ToString();
+            return this;
+        }
+
+        /// <summary>
+        /// Only include movies that are equal to, or have a runtime lower than this value. Expected value is an integer (minutes).
+        /// </summary>
+        public DiscoverMovie WhereRuntimeIsAtMost(int minutes)
+        {
+            Parameters["with_runtime.lte"] = minutes.ToString();
+            return this;
+        }
+
+        /// <summary>
         /// Filter movies by their vote average and only include those that have an average rating that is equal to or higher than the specified value. Expected value is a float.
         /// </summary>
         public DiscoverMovie WhereVoteAverageIsAtLeast(double score)
@@ -435,6 +454,24 @@ namespace TMDbLib.Objects.Discover
         public DiscoverMovie WhereOriginalLanguageIs(string language)
         {
             Parameters["with_original_language"] = language;
+            return this;
+        }
+
+        /// <summary>
+        /// Specifies that only movies with all the given release types will be returned.
+        /// </summary>
+        public DiscoverMovie WithAllOfReleaseTypes(params ReleaseDateType[] releaseTypes)
+        {
+            Parameters["with_release_type"] = string.Join(",", releaseTypes.Select(s => ((int)s).ToString()));
+            return this;
+        }
+
+        /// <summary>
+        /// Specifies that only movies with the given release types will be returned.
+        /// </summary>
+        public DiscoverMovie WithAnyOfReleaseTypes(params ReleaseDateType[] releaseTypes)
+        {
+            Parameters["with_release_type"] = string.Join("|", releaseTypes.Select(s => ((int)s).ToString()));
             return this;
         }
     }

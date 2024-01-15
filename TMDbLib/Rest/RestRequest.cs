@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -93,6 +94,7 @@ namespace TMDbLib.Rest
             return new RestResponse(resp);
         }
 
+        [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP001:Dispose created", Justification = "resp is disposed by RestResponse<>()")]
         public async Task<RestResponse<T>> Delete<T>(CancellationToken cancellationToken)
         {
             HttpResponseMessage resp = await SendInternal(HttpMethod.Delete, cancellationToken).ConfigureAwait(false);
@@ -107,6 +109,7 @@ namespace TMDbLib.Rest
             return new RestResponse(resp);
         }
 
+        [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP001:Dispose created", Justification = "resp is disposed by RestResponse<>()")]
         public async Task<RestResponse<T>> Get<T>(CancellationToken cancellationToken)
         {
             HttpResponseMessage resp = await SendInternal(HttpMethod.Get, cancellationToken).ConfigureAwait(false);
@@ -121,6 +124,7 @@ namespace TMDbLib.Rest
             return new RestResponse(resp);
         }
 
+        [SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP001:Dispose created", Justification = "resp is disposed by RestResponse<>()")]
         public async Task<RestResponse<T>> Post<T>(CancellationToken cancellationToken)
         {
             HttpResponseMessage resp = await SendInternal(HttpMethod.Post, cancellationToken).ConfigureAwait(false);
@@ -182,15 +186,18 @@ namespace TMDbLib.Rest
 
             do
             {
-                using (HttpRequestMessage req = PrepRequest(method))
+                using HttpRequestMessage req = PrepRequest(method);
+                HttpResponseMessage resp = await _client.HttpClient.SendAsync(req, cancellationToken).ConfigureAwait(false);
+
+                bool isJson = resp.Content.Headers.ContentType.MediaType.Equals("application/json");
+
+                if (resp.IsSuccessStatusCode && isJson)
+#pragma warning disable IDISP011 // Don't return disposed instance
+                    return resp;
+#pragma warning restore IDISP011 // Don't return disposed instance
+
+                try
                 {
-                    HttpResponseMessage resp = await _client.HttpClient.SendAsync(req, cancellationToken).ConfigureAwait(false);
-
-                    bool isJson = resp.Content.Headers.ContentType.MediaType.Equals("application/json");
-
-                    if (resp.IsSuccessStatusCode && isJson)
-                        return resp;
-
                     if (isJson)
                         statusMessage = JsonConvert.DeserializeObject<TMDbStatusMessage>(await resp.Content.ReadAsStringAsync().ConfigureAwait(false));
                     else
@@ -226,6 +233,10 @@ namespace TMDbLib.Rest
                     }
 
                     throw new GeneralHttpException(resp.StatusCode);
+                }
+                finally
+                {
+                    resp.Dispose();
                 }
             } while (timesToTry-- > 0);
 

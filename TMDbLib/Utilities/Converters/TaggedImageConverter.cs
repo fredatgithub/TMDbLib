@@ -19,21 +19,19 @@ namespace TMDbLib.Utilities.Converters
             JObject jObject = JObject.Load(reader);
 
             TaggedImage result = new TaggedImage();
-            serializer.Populate(jObject.CreateReader(), result);
+
+            using (JsonReader jsonReader = jObject.CreateReader())
+                serializer.Populate(jsonReader, result);
 
             JToken mediaJson = jObject["media"];
-            switch (result.MediaType)
+            result.Media = result.MediaType switch
             {
-                case MediaType.Movie:
-                    result.Media = mediaJson.ToObject<SearchMovie>();
-                    break;
-                case MediaType.Tv:
-                    result.Media = mediaJson.ToObject<SearchTv>();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
+                MediaType.Movie => mediaJson.ToObject<SearchMovie>(),
+                MediaType.Tv => mediaJson.ToObject<SearchTv>(),
+                MediaType.Episode => mediaJson.ToObject<SearchTvEpisode>(),
+                MediaType.Season => mediaJson.ToObject<SearchTvSeason>(),
+                _ => throw new ArgumentOutOfRangeException(),
+            };
             return result;
         }
 

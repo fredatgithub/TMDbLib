@@ -56,7 +56,7 @@ namespace TMDbLib.Client
 
             //req.DateFormat = "yyyy-MM-dd";
 
-            RestResponse<Collection> response = await req.Get<Collection>(cancellationToken).ConfigureAwait(false);
+            using RestResponse<Collection> response = await req.Get<Collection>(cancellationToken).ConfigureAwait(false);
 
             if (!response.IsValid)
                 return null;
@@ -72,6 +72,11 @@ namespace TMDbLib.Client
         public async Task<ImagesWithId> GetCollectionImagesAsync(int collectionId, string language = null, CancellationToken cancellationToken = default)
         {
             return await GetCollectionMethodInternal<ImagesWithId>(collectionId, CollectionMethods.Images, language, cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task<TranslationsContainer> GetCollectionTranslationsAsync(int collectionId, CancellationToken cancellationToken = default)
+        {
+            return await GetCollectionMethodInternal<TranslationsContainer>(collectionId, CollectionMethods.Translations, null, cancellationToken).ConfigureAwait(false);
         }
     }
 }

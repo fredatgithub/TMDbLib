@@ -48,8 +48,10 @@
         public const int FrankSinatra = 4347;
         public const int BruceWillis = 62;
         public const int HughLaurie = 41419;
+        public const int TomHanks = 31;
         public const string ImdbBruceWillis = "nm0000246";
         public const int JoshACagan = 129305;
+        public const int AnnaTorv = 30084;
 
         // Collections
         public const int JamesBondCollection = 645;

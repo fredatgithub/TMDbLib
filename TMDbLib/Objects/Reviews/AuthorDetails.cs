@@ -13,7 +13,7 @@ namespace TMDbLib.Objects.Reviews
     [JsonProperty("avatar_path")]
     public string AvatarPath { get; set; }
 
-    [JsonProperty("rating")]
-    public string Rating { get; set; }
-  }
+        [JsonProperty("rating")]
+        public double? Rating { get; set; }
+    }
 }

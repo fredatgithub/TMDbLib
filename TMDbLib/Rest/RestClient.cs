@@ -7,7 +7,7 @@ using TMDbLib.Utilities.Serializer;
 
 namespace TMDbLib.Rest
 {
-    internal class RestClient : IDisposable
+    internal sealed class RestClient : IDisposable
     {
         private int _maxRetryCount;
 
@@ -48,6 +48,12 @@ namespace TMDbLib.Rest
 
                 _maxRetryCount = value;
             }
+        }
+
+        public TimeSpan Timeout
+        {
+            get => HttpClient.Timeout;
+            set => HttpClient.Timeout = value;
         }
 
         public bool ThrowApiExceptions { get; set; }

@@ -44,7 +44,7 @@ namespace TMDbLib.Client
             req.AddUrlSegment("method", TvEpisodeMethods.AccountStates.GetDescription());
             AddSessionId(req, SessionType.UserSession);
 
-            RestResponse<ResultContainer<TvEpisodeAccountStateWithNumber>> response = await req.Get<ResultContainer<TvEpisodeAccountStateWithNumber>>(cancellationToken).ConfigureAwait(false);
+            using RestResponse<ResultContainer<TvEpisodeAccountStateWithNumber>> response = await req.Get<ResultContainer<TvEpisodeAccountStateWithNumber>>(cancellationToken).ConfigureAwait(false);
 
             return await response.GetDataObject().ConfigureAwait(false);
         }
@@ -89,7 +89,7 @@ namespace TMDbLib.Client
             if (appends != string.Empty)
                 req.AddParameter("append_to_response", appends);
 
-            RestResponse<TvSeason> response = await req.Get<TvSeason>(cancellationToken).ConfigureAwait(false);
+            using RestResponse<TvSeason> response = await req.Get<TvSeason>(cancellationToken).ConfigureAwait(false);
 
             if (!response.IsValid)
                 return null;
@@ -159,6 +159,11 @@ namespace TMDbLib.Client
         public async Task<ResultContainer<Video>> GetTvSeasonVideosAsync(int tvShowId, int seasonNumber, string language = null, CancellationToken cancellationToken = default)
         {
             return await GetTvSeasonMethodInternal<ResultContainer<Video>>(tvShowId, seasonNumber, TvSeasonMethods.Videos, language: language, cancellationToken: cancellationToken).ConfigureAwait(false);
+        }
+
+        public async Task<TranslationsContainer> GetTvSeasonTranslationsAsync(int tvShowId, int seasonNumber, CancellationToken cancellationToken = default)
+        {
+            return await GetTvSeasonMethodInternal<TranslationsContainer>(tvShowId, seasonNumber, TvSeasonMethods.Translations, null, null, cancellationToken).ConfigureAwait(false);
         }
     }
 }

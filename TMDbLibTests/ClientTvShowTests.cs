@@ -31,7 +31,6 @@ namespace TMDbLibTests
                 [TvShowMethods.Changes] = tvShow => tvShow.Changes,
                 [TvShowMethods.AccountStates] = tvShow => tvShow.AccountStates,
                 [TvShowMethods.Recommendations] = tvShow => tvShow.Recommendations,
-                [TvShowMethods.ExternalIds] = tvShow => tvShow.ExternalIds,
                 [TvShowMethods.WatchProviders] = tvShow => tvShow.WatchProviders,
                 [TvShowMethods.EpisodeGroups] = tvShow => tvShow.EpisodeGroups,
                 [TvShowMethods.CreditsAggregate] = tvShow => tvShow.AggregateCredits
@@ -72,7 +71,7 @@ namespace TMDbLibTests
         [Fact]
         public async Task TestAggregateCreditsExtractAllAsync()
         {
-            Credits credits = await TMDbClient.GetAggregateCredits(IdHelper.Lupin);
+            CreditsAggregate credits = await TMDbClient.GetAggregateCredits(IdHelper.Lupin);
 
             await Verify(credits);
         }
